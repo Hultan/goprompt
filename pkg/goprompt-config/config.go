@@ -1,4 +1,4 @@
-package go_prompt_config
+package goprompt_config
 
 import (
 	"encoding/json"
@@ -8,7 +8,7 @@ import (
 	"path"
 )
 
-const defaultConfigPath = ".config/softteam/go-prompt/go-prompt.json"
+const defaultConfigPath = ".config/softteam/goprompt/goprompt.json"
 
 // Config : The main Config type
 type Config struct {

@@ -1,4 +1,4 @@
-package go_prompt
+package goprompt
 
 import (
 	"fmt"

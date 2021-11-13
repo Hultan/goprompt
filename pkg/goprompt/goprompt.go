@@ -1,4 +1,4 @@
-package go_prompt
+package goprompt
 
 import (
 	"os"
@@ -6,7 +6,7 @@ import (
 	"strings"
 	"time"
 
-	config "color/pkg/go-prompt-config"
+	config "color/pkg/goprompt-config"
 
 	"github.com/fatih/color"
 

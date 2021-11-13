@@ -3,7 +3,7 @@
 Lets you configure you terminal prompt by editing a JSON file
 
 */
-package go_prompt
+package goprompt
 
 type SectionType string
 

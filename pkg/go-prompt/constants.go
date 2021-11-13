@@ -27,10 +27,10 @@ const (
 	SectionTypeDateTime = "datetime"
 	// SectionTypeGit shows the GIT status for the current repository (if the current directory has a
 	// .git sub folder).
-	SectionTypeGit
+	SectionTypeGit = "git"
 	// SectionTypeGoVersion shows the Go version for the current directory (if the current directory
 	// contains a go.mod file).
-	SectionTypeGoVersion
+	SectionTypeGoVersion = "go"
 	// SectionTypeDrive shows the amount of disk space on the drive where the current users home folder is.
 	SectionTypeDrive = "free-space"
 )

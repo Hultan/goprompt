@@ -9,6 +9,8 @@ import (
 	config "color/pkg/go-prompt-config"
 
 	"github.com/fatih/color"
+
+	"github.com/hultan/gomod"
 )
 
 func GetPrompt() string {
@@ -35,6 +37,7 @@ func handleConfig(cfg *config.Config) string {
 func handleSection(cfg *config.Config, index int) string {
 	result := ""
 
+	// TODO: If a section handler returns an empty string, skip the next separator?
 	switch SectionType(cfg.Sections[index].SectionType) {
 	case SectionTypeText:
 		result += handleSectionTypeText(cfg, index)
@@ -48,6 +51,10 @@ func handleSection(cfg *config.Config, index int) string {
 		result += handleSectionTypeComputerName(cfg, index)
 	case SectionTypeDateTime:
 		result += handleSectionTypeDateTime(cfg, index)
+	case SectionTypeGit:
+		result += handleSectionTypeGit(cfg, index)
+	case SectionTypeGoVersion:
+		result += handleSectionTypeGoVersion(cfg, index)
 	case SectionTypeDrive:
 		result += handleSectionTypeDrive(cfg, index)
 	}
@@ -103,7 +110,10 @@ func handleSectionTypeUserName(cfg *config.Config, index int) string {
 	s := cfg.Sections[index]
 	c := createColor(s.ForeGroundColor, s.BackGroundColor)
 	c = addStyles(s, c)
-	u, _ := user.Current()
+	u, err := user.Current()
+	if err != nil {
+		return ""
+	}
 	return c.Sprintf("%s%s%s", s.Prefix, u.Username, s.Suffix)
 }
 
@@ -111,7 +121,10 @@ func handleSectionTypeComputerName(cfg *config.Config, index int) string {
 	s := cfg.Sections[index]
 	c := createColor(s.ForeGroundColor, s.BackGroundColor)
 	c = addStyles(s, c)
-	host, _ := os.Hostname()
+	host, err := os.Hostname()
+	if err != nil {
+		return ""
+	}
 	return c.Sprintf("%s%s%s", s.Prefix, host, s.Suffix)
 }
 
@@ -120,6 +133,30 @@ func handleSectionTypeDateTime(cfg *config.Config, index int) string {
 	c := createColor(s.ForeGroundColor, s.BackGroundColor)
 	c = addStyles(s, c)
 	return c.Sprintf("%s%s%s", s.Prefix, time.Now().Format(s.Format), s.Suffix)
+}
+
+func handleSectionTypeGit(cfg *config.Config, index int) string {
+	s := cfg.Sections[index]
+	c := createColor(s.ForeGroundColor, s.BackGroundColor)
+	c = addStyles(s, c)
+	return c.Sprintf("%s%s%s", s.Prefix, time.Now().Format(s.Format), s.Suffix)
+}
+
+func handleSectionTypeGoVersion(cfg *config.Config, index int) string {
+	s := cfg.Sections[index]
+	c := createColor(s.ForeGroundColor, s.BackGroundColor)
+	c = addStyles(s, c)
+
+	m := gomod.GoMod{}
+	path, err := os.Getwd()
+	if err != nil {
+		return ""
+	}
+	info := m.GetInfo(path)
+	if info == nil {
+		return ""
+	}
+	return c.Sprintf("%s%s%s", s.Prefix, info.Version(), s.Suffix)
 }
 
 func handleSectionTypeDrive(cfg *config.Config, index int) string {

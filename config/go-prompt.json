@@ -1,22 +1,76 @@
 {
   "sections": [
     {
+      "type": 0,
+      "fg-color": "hiwhite",
+      "bg-color": "red",
+      "styles": "underline",
+      "text": "text"
+    },
+    {
+      "type": 1,
+      "text": "\uE0B0"
+    },
+    {
       "type": 2,
-      "fg-color": "white",
-      "bg-color": "blue",
-      "styles": "bold",
-      "prefix": "",
-      "suffix": "",
-      "format": ""
+      "fg-color": "hiyellow",
+      "bg-color": "green",
+      "prefix": " ",
+      "suffix": " "
+    },
+    {
+      "type": 1,
+      "text": "\uE0B0"
     },
     {
       "type": 3,
-      "fg-color": "red",
-      "bg-color": "black",
-      "styles": "bold,uppercase",
-      "prefix": "",
-      "suffix": "",
-      "format": ""
+      "fg-color": "black",
+      "bg-color": "cyan",
+      "styles": "bold",
+      "prefix": " ",
+      "suffix": " "
+    },
+    {
+      "type": 1,
+      "text": "\uE0B0"
+    },
+    {
+      "type": 4,
+      "fg-color": "blue",
+      "bg-color": "magenta",
+      "styles": "bold",
+      "prefix": " ",
+      "suffix": " "
+    },
+    {
+      "type": 1,
+      "text": "\uE0B0"
+    },
+    {
+      "type": 5,
+      "fg-color": "white",
+      "bg-color": "red",
+      "styles": "bold",
+      "prefix": " ",
+      "suffix": " ",
+      "format": "2006-01-02 kl. 15:04:05"
+    },
+    {
+      "type": 1,
+      "text": "\uE0B0"
+    },
+    {
+      "type": 8,
+      "fg-color": "white",
+      "bg-color": "cyan",
+      "styles": "bold",
+      "prefix": " ",
+      "suffix": " ",
+      "format": "SI"
+    },
+    {
+      "type": 1,
+      "text": "\uE0B0"
     }
   ]
 }

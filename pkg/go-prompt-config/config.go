@@ -16,7 +16,7 @@ type Config struct {
 }
 
 type ConfigSection struct {
-	SectionType     int    `json:"type"`
+	SectionType     string `json:"type"`
 	ForeGroundColor string `json:"fg-color"`
 	BackGroundColor string `json:"bg-color"`
 	Styles          string `json:"styles"`

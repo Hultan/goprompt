@@ -5,26 +5,26 @@ Lets you configure you terminal prompt by editing a JSON file
 */
 package go_prompt
 
-type SectionType int
+type SectionType string
 
 const (
 	// SectionTypeText shows a text item
-	SectionTypeText SectionType = iota
+	SectionTypeText SectionType = "text"
 	// SectionTypeSeparator adds a separator item. If a colors are specified in the config file,
 	// they will be used, otherwise the background color of the previous item will be used as
 	// foreground color, and the background color of the following item will be used as background
 	// color. If a previous item or a following item does not exist, an empty color will be used.
-	SectionTypeSeparator
+	SectionTypeSeparator = "separator"
 	// SectionTypePWD shows the current path.
-	SectionTypePWD
+	SectionTypePWD = "pwd"
 	// SectionTypeUserName shows the current username.
-	SectionTypeUserName
+	SectionTypeUserName = "user-name"
 	// SectionTypeComputerName shows the current computer name.
-	SectionTypeComputerName
+	SectionTypeComputerName = "computer-name"
 	// SectionTypeDateTime shows the current date, time or both, formatted by the go formatting string in the
 	// format field. An example formatting string would be "2006-01-02 15:04:05". Find more examples here:
 	// https://pkg.go.dev/time#Time.Format.
-	SectionTypeDateTime
+	SectionTypeDateTime = "datetime"
 	// SectionTypeGit shows the GIT status for the current repository (if the current directory has a
 	// .git sub folder).
 	SectionTypeGit
@@ -32,7 +32,7 @@ const (
 	// contains a go.mod file).
 	SectionTypeGoVersion
 	// SectionTypeDrive shows the amount of disk space on the drive where the current users home folder is.
-	SectionTypeDrive
+	SectionTypeDrive = "free-space"
 )
 
 type SectionStyle string

@@ -1,29 +1,29 @@
 {
   "sections": [
     {
-      "type": 0,
+      "type": "text",
       "fg-color": "hiwhite",
       "bg-color": "red",
       "styles": "underline",
       "text": "text"
     },
     {
-      "type": 1,
+      "type": "separator",
       "text": "\uE0B0"
     },
     {
-      "type": 2,
+      "type": "pwd",
       "fg-color": "hiyellow",
       "bg-color": "green",
       "prefix": " ",
       "suffix": " "
     },
     {
-      "type": 1,
+      "type": "separator",
       "text": "\uE0B0"
     },
     {
-      "type": 3,
+      "type": "user-name",
       "fg-color": "black",
       "bg-color": "cyan",
       "styles": "bold",
@@ -31,11 +31,11 @@
       "suffix": " "
     },
     {
-      "type": 1,
+      "type": "separator",
       "text": "\uE0B0"
     },
     {
-      "type": 4,
+      "type": "computer-name",
       "fg-color": "blue",
       "bg-color": "magenta",
       "styles": "bold",
@@ -43,11 +43,11 @@
       "suffix": " "
     },
     {
-      "type": 1,
+      "type": "separator",
       "text": "\uE0B0"
     },
     {
-      "type": 5,
+      "type": "datetime",
       "fg-color": "white",
       "bg-color": "red",
       "styles": "bold",
@@ -56,11 +56,11 @@
       "format": "2006-01-02 kl. 15:04:05"
     },
     {
-      "type": 1,
+      "type": "separator",
       "text": "\uE0B0"
     },
     {
-      "type": 8,
+      "type": "free-space",
       "fg-color": "white",
       "bg-color": "cyan",
       "styles": "bold",
@@ -69,8 +69,9 @@
       "format": "SI"
     },
     {
-      "type": 1,
-      "text": "\uE0B0"
+      "type": "separator",
+      "text": "\uE0B0",
+      "suffix": " "
     }
   ]
 }

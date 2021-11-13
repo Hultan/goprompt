@@ -89,7 +89,7 @@ func handleSectionTypeSeparator(cfg *config.Config, index int) string {
 
 	c := createColor(fg, bg)
 	c = addStyles(s, c)
-	return c.Sprintf("%s", s.Text)
+	return c.Sprintf("%s%s%s", s.Prefix, s.Text, s.Suffix)
 }
 
 func handleSectionTypePWD(cfg *config.Config, index int) string {
@@ -145,6 +145,7 @@ func addStyles(cs config.ConfigSection, c *color.Color) *color.Color {
 
 func createColor(fg, bg string) *color.Color {
 	c := color.New(color.Reset)
+	c.EnableColor()
 	if fg != "" {
 		if col, ok := toFgColor(fg); ok {
 			c.Add(col)

@@ -3,6 +3,10 @@ github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/fatih/color v1.13.0 h1:8LOYc1KYPPmyKMuN8QV2DNRWNbLo6LZ0iLs8+mlH53w=
 github.com/fatih/color v1.13.0/go.mod h1:kLAiJbzzSOZDVNGyDpeOxJ47H46qBXwg5ILebYFFOfk=
+github.com/hultan/gitstatus v1.0.0 h1:IZjE5xr8m+9e8Cg762Z3KiuRtNWm52Cp+XT2SwNh5fA=
+github.com/hultan/gitstatus v1.0.0/go.mod h1:OyoZcNsH/d7TksJVfC+cl1Q4MeRCLiXjYN7esrvKuXY=
+github.com/hultan/gitstatusprompt v1.0.0 h1:EFgoKJfZz5u2NJc+s7i1X4OTrisMsHZyVPMNugn4/Zw=
+github.com/hultan/gitstatusprompt v1.0.0/go.mod h1:rnHtpNHgsoMV2i88/ZRSS0hwYAXYF+MbXbylHwWa/Nw=
 github.com/hultan/gomod v1.0.1 h1:9eLtKcZQ0MyvWs65gjhDXwRG33VJViG79SKS9DGLgOM=
 github.com/hultan/gomod v1.0.1/go.mod h1:YkfKc/bmjqBEpR/lbcZBFg/olVoDOQm6GPcA/d/1CkM=
 github.com/mattn/go-colorable v0.1.9 h1:sqDoxXbdeALODt0DAeJCVp38ps9ZogZEAXjus69YV3U=

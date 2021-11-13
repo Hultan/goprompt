@@ -10,6 +10,7 @@ import (
 
 	"github.com/fatih/color"
 
+	gitStatusPrompt "github.com/hultan/gitstatusprompt"
 	"github.com/hultan/gomod"
 )
 
@@ -139,7 +140,18 @@ func handleSectionTypeGit(cfg *config.Config, index int) string {
 	s := cfg.Sections[index]
 	c := createColor(s.ForeGroundColor, s.BackGroundColor)
 	c = addStyles(s, c)
-	return c.Sprintf("%s%s%s", s.Prefix, time.Now().Format(s.Format), s.Suffix)
+
+	gs := gitStatusPrompt.GitStatusPrompt{}
+	path, err := os.Getwd()
+	if err != nil {
+		return ""
+	}
+	status := gs.GetPrompt(path)
+	if err != nil {
+		return ""
+	}
+
+	return c.Sprintf("%s%s%s", s.Prefix, status, s.Suffix)
 }
 
 func handleSectionTypeGoVersion(cfg *config.Config, index int) string {

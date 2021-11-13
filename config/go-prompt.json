@@ -1,0 +1,22 @@
+{
+  "sections": [
+    {
+      "type": 2,
+      "fg-color": "white",
+      "bg-color": "blue",
+      "styles": "bold",
+      "prefix": "",
+      "suffix": "",
+      "format": ""
+    },
+    {
+      "type": 3,
+      "fg-color": "red",
+      "bg-color": "black",
+      "styles": "bold,uppercase",
+      "prefix": "",
+      "suffix": "",
+      "format": ""
+    }
+  ]
+}

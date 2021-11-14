@@ -1,77 +1,77 @@
 {
+  "main-prefix":"",
   "sections": [
     {
-      "type": "text",
-      "fg-color": "hiwhite",
-      "bg-color": "red",
-      "styles": "underline",
-      "text": "text"
-    },
-    {
-      "type": "separator",
-      "text": "\uE0B0"
-    },
-    {
-      "type": "pwd",
-      "fg-color": "hiyellow",
-      "bg-color": "green",
-      "prefix": " ",
-      "suffix": " "
-    },
-    {
-      "type": "separator",
-      "text": "\uE0B0"
-    },
-    {
       "type": "user-name",
-      "fg-color": "black",
-      "bg-color": "cyan",
+      "fg-color": "hiwhite",
+      "bg-color": "blue",
       "styles": "bold",
       "prefix": " ",
-      "suffix": " "
-    },
-    {
-      "type": "separator",
-      "text": "\uE0B0"
-    },
-    {
-      "type": "computer-name",
-      "fg-color": "blue",
-      "bg-color": "magenta",
-      "styles": "bold",
-      "prefix": " ",
-      "suffix": " "
-    },
-    {
-      "type": "separator",
-      "text": "\uE0B0"
+      "suffix": " ",
+      "sep": "\uE0B0",
+      "sep-fg-color": "blue",
+      "sep-bg-color": "hiblue"
     },
     {
       "type": "datetime",
-      "fg-color": "white",
-      "bg-color": "red",
+      "fg-color": "hiwhite",
+      "bg-color": "hiblue",
       "styles": "bold",
       "prefix": " ",
       "suffix": " ",
-      "format": "2006-01-02 kl. 15:04:05"
+      "format": "2006-01-02 15:04",
+      "sep": "\uE0B0",
+      "sep-fg-color": "hiblue",
+      "sep-bg-color": "hiwhite"
     },
     {
-      "type": "separator",
-      "text": "\uE0B0"
-    },
-    {
-      "type": "free-space",
-      "fg-color": "white",
-      "bg-color": "cyan",
+      "type": "pwd",
+      "fg-color": "hiblue",
+      "bg-color": "hiwhite",
       "styles": "bold",
       "prefix": " ",
       "suffix": " ",
-      "format": "SI"
+      "sep": "\uE0B0",
+      "sep-fg-color": "hiwhite",
+      "sep-bg-color": "hiblue"
     },
     {
-      "type": "separator",
-      "text": "\uE0B0",
-      "suffix": " "
+      "type": "go",
+      "fg-color": "hiwhite",
+      "bg-color": "hiblue",
+      "styles": "bold",
+      "prefix": " go ",
+      "suffix": " ",
+      "remove-if-empty": true,
+      "sep": "\uE0B0",
+      "sep-fg-color": "hiblue",
+      "sep-bg-color": "blue"
+    },
+    {
+      "type": "git",
+      "fg-color": "hiwhite",
+      "bg-color": "blue",
+      "styles": "bold",
+      "prefix": " ",
+      "suffix": " ",
+      "remove-if-empty": true,
+      "format": "",
+      "sep": "\uE0B0",
+      "sep-fg-color": "blue",
+      "sep-bg-color": "green"
+    },
+    {
+      "type": "text",
+      "fg-color": "white",
+      "bg-color": "green",
+      "styles": "bold",
+      "prefix": " ",
+      "suffix": " ",
+      "text": "pelle",
+      "sep": "\uE0B0",
+      "sep-fg-color": "green",
+      "sep-bg-color": ""
     }
-  ]
+  ],
+  "main-suffix":" "
 }

@@ -1,6 +1,7 @@
 package goprompt
 
 import (
+	"fmt"
 	"strings"
 
 	config "color/pkg/goprompt-config"
@@ -18,19 +19,18 @@ func GetPrompt() string {
 	}
 
 	// 1. Create sections
-	sections := getSections(cfg)
-
-	// 2. getData()
-	data := getData(sections)
+	allSections := createSections(cfg)
+	// 2. Get data from sections
+	data := getDataFromSections(allSections)
 	// 3. Remove empty sections
-	nonEmptySections := getNonEmptySections(cfg, data, sections)
-	// 4. getSections()
+	nonEmptySections := removeEmptySections(cfg, data, allSections)
+	// 4. Get the prompt
 	p := getPrompt(nonEmptySections)
 
-	return p
+	return fmt.Sprintf("%s%s%s", cfg.Prefix, p, cfg.Suffix)
 }
 
-func getSections(cfg *config.Config) []section {
+func createSections(cfg *config.Config) []section {
 	var sections []section
 	for index := range cfg.Sections {
 		c := configSection{cfg, index}
@@ -58,7 +58,7 @@ func getSections(cfg *config.Config) []section {
 	return sections
 }
 
-func getData(sections []section) []string {
+func getDataFromSections(sections []section) []string {
 	var data []string
 	for i := range sections {
 		data = append(data, sections[i].GetData())
@@ -66,7 +66,7 @@ func getData(sections []section) []string {
 	return data
 }
 
-func getNonEmptySections(cfg *config.Config, data []string, sections []section) []section {
+func removeEmptySections(cfg *config.Config, data []string, sections []section) []section {
 	for i := len(data) - 1; i >= 0; i-- {
 		if cfg.Sections[i].RemoveIfEmpty && data[i] == "" {
 			data = append(data[:i], data[i+1:]...)
@@ -84,7 +84,8 @@ func getPrompt(sections []section) string {
 	return result
 
 }
-func getSeparator(cfg *config.Config, index int) string {
+
+func getSectionSeparator(cfg *config.Config, index int) string {
 	s := cfg.Sections[index]
 	c := createColor(s.SeparatorFgColor, s.SeparatorBgColor)
 	c = addStyles(s.SeparatorStyles, c)

@@ -27,6 +27,7 @@ type ConfigSection struct {
 	Format           string `json:"format"`
 	Text             string `json:"text"`
 	Separator        string `json:"sep"`
+	RemoveIfEmpty    bool   `json:"remove-if-empty"`
 	SeparatorFgColor string `json:"sep-fg-color"`
 	SeparatorBgColor string `json:"sep-bg-color"`
 	SeparatorStyles  string `json:"sep-styles"`

@@ -1,4 +1,4 @@
-/*Package go_prompt:
+/*Package goprompt:
 
 Lets you configure you terminal prompt by editing a JSON file
 

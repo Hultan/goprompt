@@ -12,18 +12,26 @@ const defaultConfigPath = ".config/softteam/goprompt/goprompt.json"
 
 // Config : The main Config type
 type Config struct {
+	Prefix   string          `json:"main-prefix"`
 	Sections []ConfigSection `json:"Sections"`
+	Suffix   string          `json:"main-suffix"`
 }
 
 type ConfigSection struct {
-	SectionType     string `json:"type"`
-	ForeGroundColor string `json:"fg-color"`
-	BackGroundColor string `json:"bg-color"`
-	Styles          string `json:"styles"`
-	Prefix          string `json:"prefix"`
-	Suffix          string `json:"suffix"`
-	Format          string `json:"format"`
-	Text            string `json:"text"`
+	SectionType      string `json:"type"`
+	FgColor          string `json:"fg-color"`
+	BgColor          string `json:"bg-color"`
+	Styles           string `json:"styles"`
+	Prefix           string `json:"prefix"`
+	Suffix           string `json:"suffix"`
+	Format           string `json:"format"`
+	Text             string `json:"text"`
+	Separator        string `json:"sep"`
+	SeparatorFgColor string `json:"sep-fg-color"`
+	SeparatorBgColor string `json:"sep-bg-color"`
+	SeparatorStyles  string `json:"sep-styles"`
+	SeparatorPrefix  string `json:"sep-prefix"`
+	SeparatorSuffix  string `json:"sep-suffix"`
 }
 
 // NewConfig : Create a new Config
@@ -34,7 +42,7 @@ func NewConfig() *Config {
 // Load : Loads the configuration file
 func (config *Config) Load() (err error) {
 	// Get the path to the Config file
-	configPath,err := config.getConfigPath()
+	configPath, err := config.getConfigPath()
 	if err != nil {
 		fmt.Printf("failed to get the path to the config file\n")
 		return err

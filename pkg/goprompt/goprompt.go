@@ -1,6 +1,7 @@
 package goprompt
 
 import (
+	"fmt"
 	"os"
 	"os/user"
 	"strings"
@@ -20,7 +21,8 @@ func GetPrompt() string {
 	if err != nil {
 		// TODO: Log error
 		// We can't continue if we don't have a log file.
-		panic(err)}
+		panic(err)
+	}
 
 	return handleConfig(cfg)
 }
@@ -31,8 +33,12 @@ func handleConfig(cfg *config.Config) string {
 	for index := range cfg.Sections {
 		result += handleSection(cfg, index)
 	}
-
-	return result
+	//
+	// b := []byte(result)
+	// fmt.Println(b)
+	// fmt.Println("\uE0B0")
+	// fmt.Println([]byte("\uE0B0"))
+	return fmt.Sprintf("%s%s%s", cfg.Prefix, result, cfg.Suffix)
 }
 
 func handleSection(cfg *config.Config, index int) string {
@@ -42,8 +48,6 @@ func handleSection(cfg *config.Config, index int) string {
 	switch SectionType(cfg.Sections[index].SectionType) {
 	case SectionTypeText:
 		result += handleSectionTypeText(cfg, index)
-	case SectionTypeSeparator:
-		result += handleSectionTypeSeparator(cfg, index)
 	case SectionTypePWD:
 		result += handleSectionTypePWD(cfg, index)
 	case SectionTypeUserName:
@@ -65,81 +69,57 @@ func handleSection(cfg *config.Config, index int) string {
 
 func handleSectionTypeText(cfg *config.Config, index int) string {
 	s := cfg.Sections[index]
-	c := createColor(s.ForeGroundColor, s.BackGroundColor)
-	c = addStyles(s, c)
-	return c.Sprintf("%s%s%s", s.Prefix, s.Text, s.Suffix)
-}
+	c := createColor(s.FgColor, s.BgColor)
+	c = addStyles(s.Styles, c)
 
-func handleSectionTypeSeparator(cfg *config.Config, index int) string {
-	// Get colors from previous and/or next sections.
-	s := cfg.Sections[index]
-	var fg, bg string
-
-	// ForeGroundColor
-	// * Primarily from the config file
-	// * Secondarily from the previous item
-	// * Otherwise empty
-	if s.ForeGroundColor != "" {
-		fg = s.ForeGroundColor
-	} else if index > 0 {
-		fg = cfg.Sections[index-1].BackGroundColor
-	}
-
-	// BackGroundColor
-	// * Primarily from the config file
-	// * Secondarily from the following item
-	// * Otherwise empty
-	if s.BackGroundColor != "" {
-		bg = s.BackGroundColor
-	} else if index < len(cfg.Sections)-1 {
-		bg = cfg.Sections[index+1].BackGroundColor
-	}
-
-	c := createColor(fg, bg)
-	c = addStyles(s, c)
-	return c.Sprintf("%s%s%s", s.Prefix, s.Text, s.Suffix)
+	return c.Sprintf("%s%s%s%s", s.Prefix, s.Text, s.Suffix, getSeparator(cfg, index))
+	// return c.Sprintf("%s", getSeparator(cfg, index))
 }
 
 func handleSectionTypePWD(cfg *config.Config, index int) string {
 	s := cfg.Sections[index]
-	c := createColor(s.ForeGroundColor, s.BackGroundColor)
-	c = addStyles(s, c)
-	return c.Sprintf("%s%s%s", s.Prefix, getCurrentPath(), s.Suffix)
+	c := createColor(s.FgColor, s.BgColor)
+	c = addStyles(s.Styles, c)
+
+	return c.Sprintf("%s%s%s%s", s.Prefix, getCurrentPath(), s.Suffix, getSeparator(cfg, index))
 }
 
 func handleSectionTypeUserName(cfg *config.Config, index int) string {
 	s := cfg.Sections[index]
-	c := createColor(s.ForeGroundColor, s.BackGroundColor)
-	c = addStyles(s, c)
+	c := createColor(s.FgColor, s.BgColor)
+	c = addStyles(s.Styles, c)
 	u, err := user.Current()
 	if err != nil {
 		return ""
 	}
-	return c.Sprintf("%s%s%s", s.Prefix, u.Username, s.Suffix)
+
+	return c.Sprintf("%s%s%s%s", s.Prefix, u.Username, s.Suffix, getSeparator(cfg, index))
 }
 
 func handleSectionTypeComputerName(cfg *config.Config, index int) string {
 	s := cfg.Sections[index]
-	c := createColor(s.ForeGroundColor, s.BackGroundColor)
-	c = addStyles(s, c)
+	c := createColor(s.FgColor, s.BgColor)
+	c = addStyles(s.Styles, c)
 	host, err := os.Hostname()
 	if err != nil {
 		return ""
 	}
-	return c.Sprintf("%s%s%s", s.Prefix, host, s.Suffix)
+
+	return c.Sprintf("%s%s%s%s", s.Prefix, host, s.Suffix, getSeparator(cfg, index))
 }
 
 func handleSectionTypeDateTime(cfg *config.Config, index int) string {
 	s := cfg.Sections[index]
-	c := createColor(s.ForeGroundColor, s.BackGroundColor)
-	c = addStyles(s, c)
-	return c.Sprintf("%s%s%s", s.Prefix, time.Now().Format(s.Format), s.Suffix)
+	c := createColor(s.FgColor, s.BgColor)
+	c = addStyles(s.Styles, c)
+
+	return c.Sprintf("%s%s%s%s", s.Prefix, time.Now().Format(s.Format), s.Suffix, getSeparator(cfg, index))
 }
 
 func handleSectionTypeGit(cfg *config.Config, index int) string {
 	s := cfg.Sections[index]
-	c := createColor(s.ForeGroundColor, s.BackGroundColor)
-	c = addStyles(s, c)
+	c := createColor(s.FgColor, s.BgColor)
+	c = addStyles(s.Styles, c)
 
 	gs := gitStatusPrompt.GitStatusPrompt{}
 	path, err := os.Getwd()
@@ -151,13 +131,13 @@ func handleSectionTypeGit(cfg *config.Config, index int) string {
 		return ""
 	}
 
-	return c.Sprintf("%s%s%s", s.Prefix, status, s.Suffix)
+	return c.Sprintf("%s%s%s%s", s.Prefix, status, s.Suffix, getSeparator(cfg, index))
 }
 
 func handleSectionTypeGoVersion(cfg *config.Config, index int) string {
 	s := cfg.Sections[index]
-	c := createColor(s.ForeGroundColor, s.BackGroundColor)
-	c = addStyles(s, c)
+	c := createColor(s.FgColor, s.BgColor)
+	c = addStyles(s.Styles, c)
 
 	m := gomod.GoMod{}
 	path, err := os.Getwd()
@@ -168,23 +148,62 @@ func handleSectionTypeGoVersion(cfg *config.Config, index int) string {
 	if info == nil {
 		return ""
 	}
-	return c.Sprintf("%s%s%s", s.Prefix, info.Version(), s.Suffix)
+
+	return c.Sprintf("%s%s%s%s", s.Prefix, info.Version(), s.Suffix, getSeparator(cfg, index))
 }
 
 func handleSectionTypeDrive(cfg *config.Config, index int) string {
 	s := cfg.Sections[index]
-	c := createColor(s.ForeGroundColor, s.BackGroundColor)
-	c = addStyles(s, c)
+	c := createColor(s.FgColor, s.BgColor)
+	c = addStyles(s.Styles, c)
 
-	return c.Sprintf("%s%s%s", s.Prefix, getFreeSpace(s.Format), s.Suffix)
+	return c.Sprintf("%s%s%s%s", s.Prefix, getFreeSpace(s.Format), s.Suffix, getSeparator(cfg, index))
 }
 
-func addStyles(cs config.ConfigSection, c *color.Color) *color.Color {
-	if SectionStyle(cs.Styles) == SectionStyleNone || SectionStyle(cs.Styles) == SectionStyleEmpty {
+//
+// func handleSectionTypeSeparator(cfg *config.Config, index int) string {
+// 	// Get colors from previous and/or next sections.
+// 	s := cfg.Sections[index]
+// 	var fg, bg string
+//
+// 	// FgColor
+// 	// * Primarily from the config file
+// 	// * Secondarily from the previous item
+// 	// * Otherwise empty
+// 	if s.FgColor != "" {
+// 		fg = s.FgColor
+// 	} else if index > 0 {
+// 		fg = cfg.Sections[index-1].BgColor
+// 	}
+//
+// 	// BgColor
+// 	// * Primarily from the config file
+// 	// * Secondarily from the following item
+// 	// * Otherwise empty
+// 	if s.BgColor != "" {
+// 		bg = s.BgColor
+// 	} else if index < len(cfg.Sections)-1 {
+// 		bg = cfg.Sections[index+1].BgColor
+// 	}
+//
+// 	c := createColor(fg, bg)
+// 	c = addStyles(s, c)
+// 	return c.Sprintf("%s%s%s", s.Prefix, s.Text, s.Suffix)
+// }
+
+func getSeparator(cfg *config.Config, index int) string {
+	s := cfg.Sections[index]
+	c := createColor(s.SeparatorFgColor, s.SeparatorBgColor)
+	c = addStyles(s.SeparatorStyles, c)
+	return c.Sprintf("%s%s%s", s.SeparatorPrefix, s.Separator, s.SeparatorSuffix)
+}
+
+func addStyles(styles string, c *color.Color) *color.Color {
+	if SectionStyle(styles) == SectionStyleNone || SectionStyle(styles) == SectionStyleEmpty {
 		return c
 	}
-	styles := strings.Split(cs.Styles, ",")
-	for _, style := range styles {
+	stylesList := strings.Split(styles, ",")
+	for _, style := range stylesList {
 		if s, ok := toStyle(style); ok {
 			c.Add(s)
 		}

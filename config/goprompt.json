@@ -58,18 +58,6 @@
       "format": "",
       "sep": "\uE0B0",
       "sep-fg-color": "blue",
-      "sep-bg-color": "green"
-    },
-    {
-      "type": "text",
-      "fg-color": "white",
-      "bg-color": "green",
-      "styles": "bold",
-      "prefix": " ",
-      "suffix": " ",
-      "text": "pelle",
-      "sep": "\uE0B0",
-      "sep-fg-color": "green",
       "sep-bg-color": ""
     }
   ],

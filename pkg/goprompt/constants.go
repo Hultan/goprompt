@@ -10,11 +10,6 @@ type SectionType string
 const (
 	// SectionTypeText shows a text item
 	SectionTypeText SectionType = "text"
-	// SectionTypeSeparator adds a separator item. If a colors are specified in the config file,
-	// they will be used, otherwise the background color of the previous item will be used as
-	// foreground color, and the background color of the following item will be used as background
-	// color. If a previous item or a following item does not exist, an empty color will be used.
-	SectionTypeSeparator = "separator"
 	// SectionTypePWD shows the current path.
 	SectionTypePWD = "pwd"
 	// SectionTypeUserName shows the current username.

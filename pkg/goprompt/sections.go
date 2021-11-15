@@ -17,11 +17,12 @@ type section interface {
 }
 
 type configSection struct {
-	cfg *config.Config
-	index int
+	cfg     *config.Config
+	index   int
 }
 
-type textSection struct { configSection }
+type textSection struct{ configSection }
+
 func (ts textSection) GetData() string { return ts.cfg.Sections[ts.index].Text }
 func (ts textSection) GetSection() string {
 	s := ts.cfg.Sections[ts.index]
@@ -31,8 +32,9 @@ func (ts textSection) GetSection() string {
 	return c.Sprintf("%s%s%s%s", s.Prefix, ts.GetData(), s.Suffix, getSectionSeparator(ts.cfg, ts.index))
 }
 
-type pwdSection struct { configSection }
-func (ts pwdSection) GetData() string {	return getCurrentPath() }
+type pwdSection struct{ configSection }
+
+func (ts pwdSection) GetData() string { return getCurrentPath() }
 func (ts pwdSection) GetSection() string {
 	s := ts.cfg.Sections[ts.index]
 	c := createColor(s.FgColor, s.BgColor)
@@ -41,7 +43,8 @@ func (ts pwdSection) GetSection() string {
 	return c.Sprintf("%s%s%s%s", s.Prefix, ts.GetData(), s.Suffix, getSectionSeparator(ts.cfg, ts.index))
 }
 
-type userNameSection struct { configSection }
+type userNameSection struct{ configSection }
+
 func (ts userNameSection) GetData() string {
 	u, err := user.Current()
 	if err != nil {
@@ -57,7 +60,8 @@ func (ts userNameSection) GetSection() string {
 	return c.Sprintf("%s%s%s%s", s.Prefix, ts.GetData(), s.Suffix, getSectionSeparator(ts.cfg, ts.index))
 }
 
-type computerNameSection struct { configSection }
+type computerNameSection struct{ configSection }
+
 func (ts computerNameSection) GetData() string {
 	host, err := os.Hostname()
 	if err != nil {
@@ -72,7 +76,8 @@ func (ts computerNameSection) GetSection() string {
 	return c.Sprintf("%s%s%s%s", s.Prefix, ts.GetData(), s.Suffix, getSectionSeparator(ts.cfg, ts.index))
 }
 
-type dateTimeSection struct { configSection }
+type dateTimeSection struct{ configSection }
+
 func (ts dateTimeSection) GetData() string {
 	return time.Now().Format(ts.cfg.Sections[ts.index].Format)
 }
@@ -83,7 +88,8 @@ func (ts dateTimeSection) GetSection() string {
 	return c.Sprintf("%s%s%s%s", s.Prefix, ts.GetData(), s.Suffix, getSectionSeparator(ts.cfg, ts.index))
 }
 
-type gitSection struct { configSection }
+type gitSection struct{ configSection }
+
 func (ts gitSection) GetData() string {
 	gs := gitStatusPrompt.GitStatusPrompt{}
 	path, err := os.Getwd()
@@ -103,7 +109,8 @@ func (ts gitSection) GetSection() string {
 	return c.Sprintf("%s%s%s%s", s.Prefix, ts.GetData(), s.Suffix, getSectionSeparator(ts.cfg, ts.index))
 }
 
-type goVersionSection struct { configSection }
+type goVersionSection struct{ configSection }
+
 func (ts goVersionSection) GetData() string {
 	m := gomod.GoMod{}
 	path, err := os.Getwd()
@@ -123,7 +130,8 @@ func (ts goVersionSection) GetSection() string {
 	return c.Sprintf("%s%s%s%s", s.Prefix, ts.GetData(), s.Suffix, getSectionSeparator(ts.cfg, ts.index))
 }
 
-type driveSection struct { configSection }
+type driveSection struct{ configSection }
+
 func (ts driveSection) GetData() string { return getFreeSpace(ts.cfg.Sections[ts.index].Format) }
 func (ts driveSection) GetSection() string {
 	s := ts.cfg.Sections[ts.index]

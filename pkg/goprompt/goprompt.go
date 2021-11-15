@@ -9,6 +9,8 @@ import (
 	"github.com/fatih/color"
 )
 
+var removedSections  []int
+
 func GetPrompt() string {
 	cfg := config.NewConfig()
 	err := cfg.Load()
@@ -69,8 +71,10 @@ func getDataFromSections(sections []section) []string {
 func removeEmptySections(cfg *config.Config, data []string, sections []section) []section {
 	for i := len(data) - 1; i >= 0; i-- {
 		if cfg.Sections[i].RemoveIfEmpty && data[i] == "" {
+			removedSections = append(removedSections, i)
 			data = append(data[:i], data[i+1:]...)
 			sections = append(sections[:i], sections[i+1:]...)
+
 		}
 	}
 	return sections
@@ -87,9 +91,48 @@ func getPrompt(sections []section) string {
 
 func getSectionSeparator(cfg *config.Config, index int) string {
 	s := cfg.Sections[index]
-	c := createColor(s.SeparatorFgColor, s.SeparatorBgColor)
+	var fg, bg string
+
+	// ForeGroundColor
+	// * Primarily from the config file
+	// * Secondarily from the previous item
+	// * Otherwise empty
+	if s.SeparatorFgColor != "" {
+		fg = s.SeparatorFgColor
+	} else {
+		fg = cfg.Sections[index].BgColor
+	}
+
+	// BackGroundColor
+	// * Primarily from the config file
+	// * Secondarily from the following item
+	// * Otherwise empty
+	if s.SeparatorBgColor != "" {
+		bg = s.SeparatorBgColor
+	} else if index < len(cfg.Sections)-1 {
+		// Loop through the remaining sections and ignore removed sections.
+		for i := index + 1; i < len(cfg.Sections); i++ {
+			if isSectionRemoved(i) {
+				continue
+			}
+			bg = cfg.Sections[i].BgColor
+			break
+		}
+	}
+
+	c := createColor(fg, bg)
 	c = addStyles(s.SeparatorStyles, c)
 	return c.Sprintf("%s%s%s", s.SeparatorPrefix, s.Separator, s.SeparatorSuffix)
+}
+
+func isSectionRemoved(index int) bool {
+	for i := 0; i < len(removedSections); i++ {
+		if removedSections[i] == index {
+			return true
+		}
+	}
+
+	return false
 }
 
 func addStyles(styles string, c *color.Color) *color.Color {

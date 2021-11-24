@@ -9,14 +9,14 @@ import (
 	"github.com/fatih/color"
 )
 
-var removedSections  []int
+var removedSections []int
 
 func GetPrompt() string {
 	cfg := config.NewConfig()
 	err := cfg.Load()
 	if err != nil {
 		// TODO: Log error
-		// We can't continue if we don't have a log file.
+		// We can't continue if we don't have a config file.
 		panic(err)
 	}
 
@@ -24,12 +24,16 @@ func GetPrompt() string {
 	allSections := createSections(cfg)
 	// 2. Get data from sections
 	data := getDataFromSections(allSections)
-	// 3. Remove empty sections
+	// 3. Remove empty sections (Git and Go sections can be empty).
 	nonEmptySections := removeEmptySections(cfg, data, allSections)
 	// 4. Get the prompt
 	p := getPrompt(nonEmptySections)
+	result := fmt.Sprintf("%s%s%s", cfg.Prefix, p, cfg.Suffix)
 
-	return fmt.Sprintf("%s%s%s", cfg.Prefix, p, cfg.Suffix)
+	// length := goTermText.Len(result)
+	return result
+
+	// return result
 }
 
 func createSections(cfg *config.Config) []section {
@@ -74,7 +78,6 @@ func removeEmptySections(cfg *config.Config, data []string, sections []section) 
 			removedSections = append(removedSections, i)
 			data = append(data[:i], data[i+1:]...)
 			sections = append(sections[:i], sections[i+1:]...)
-
 		}
 	}
 	return sections
@@ -86,7 +89,6 @@ func getPrompt(sections []section) string {
 		result += sections[i].GetSection()
 	}
 	return result
-
 }
 
 func getSectionSeparator(cfg *config.Config, index int) string {

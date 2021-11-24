@@ -2,50 +2,7 @@ package goprompt
 
 import (
 	"fmt"
-	"os"
-	"os/user"
-	"strings"
-
-	"golang.org/x/sys/unix"
 )
-
-func getCurrentPath() string {
-	u, err := user.Current()
-	if err != nil {
-		// TODO : Log error
-		return "[error]"
-	}
-	home := u.HomeDir
-	path, err := os.Getwd()
-	if err != nil {
-		// TODO : Log error
-		return "[error]"
-	}
-	if strings.HasPrefix(path, home) {
-		path = strings.Replace(path, home, "~", 1)
-	}
-	return path
-}
-
-func getFreeSpace(format string) string {
-	var stat unix.Statfs_t
-	wd, _ := os.Getwd()
-	err := unix.Statfs(wd, &stat)
-	if err != nil {
-		// TODO: Log error
-		return "[error]"
-	}
-	// Available blocks * size per block = available space in bytes
-	free := stat.Bavail * uint64(stat.Bsize)
-	var freeSpace string
-	if format == SectionBytesFormatIEC  {
-		freeSpace = byteCountIEC(free)
-	} else {
-		freeSpace = byteCountSI(free)
-	}
-
-	return freeSpace
-}
 
 // From https://yourbasic.org/golang/formatting-byte-size-to-human-readable-format/
 

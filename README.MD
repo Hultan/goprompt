@@ -32,6 +32,7 @@ The config can be edited to fit your needs. The following tags are supported in 
 * **git** : Prints out the status of a Git repository.
 * **go** : Prints out the Go version in the go.mod file (if it exists).
 * **free-space** : Prints out the amount of free space available on the users home drive. Can be formatted using SI or IEC.
+* **divider** : Creates a black divider between two sections.
 
 **fg-color**
 
@@ -49,23 +50,15 @@ The config can be edited to fit your needs. The following tags are supported in 
 * **italic** : Use italic font.
 * **underline** : Use underline font.
 
-**prefix**
+**template**
 
-* A text that will prefix the section text.
-
-**suffix**
-
-* A text that will suffix the section text.
+* The text to print. Add $data$ where the actual data should be added, like user name or git status. For a text item, the template is the text that will be printed, i e $data$ will not be replaced in this section.
 
 **format**
 
 * Format is used for the **datetime** section, and the **free-space** section.
     * datetime : Use a Golang date format string (example 2006-01-02 15:04).
     * free-space : Can be SI (1k = 1000) or IEC (1k = 1024).
-
-**text** 
-
-* Used for the **text** section only.
 
 **remove-if-empty**
 

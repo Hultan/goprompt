@@ -28,6 +28,8 @@ const (
 	SectionTypeGoVersion = "go"
 	// SectionTypeDrive shows the amount of disk space on the drive where the current users home folder is.
 	SectionTypeDrive = "free-space"
+	// SectionTypeDivider created a divider between two sections.
+	SectionTypeDivider = "divider"
 )
 
 type SectionStyle string

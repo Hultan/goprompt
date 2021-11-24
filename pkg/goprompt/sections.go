@@ -20,8 +20,8 @@ type section interface {
 }
 
 type configSection struct {
-	cfg     *config.Config
-	index   int
+	cfg   *config.Config
+	index int
 }
 
 //
@@ -207,7 +207,7 @@ func (ts driveSection) GetData() string {
 	// Available blocks * size per block = available space in bytes
 	free := stat.Bavail * uint64(stat.Bsize)
 	var freeSpace string
-	if ts.cfg.Sections[ts.index].Format == SectionBytesFormatIEC  {
+	if ts.cfg.Sections[ts.index].Format == SectionBytesFormatIEC {
 		freeSpace = byteCountIEC(free)
 	} else {
 		freeSpace = byteCountSI(free)
@@ -222,4 +222,23 @@ func (ts driveSection) GetSection() string {
 	c = addStyles(s.Styles, c)
 
 	return GetSectionText(c, s.Template, ts.GetData(), getSectionSeparator(ts.cfg, ts.index))
+}
+
+//
+// dividerSection
+//
+
+type dividerSection struct{ configSection }
+
+func (ts dividerSection) GetData() string {
+	return ""
+}
+
+func (ts dividerSection) GetSection() string {
+	s := ts.cfg.Sections[ts.index]
+	c := createColor(s.FgColor, s.BgColor)
+	c = addStyles(s.Styles, c)
+
+	// return GetSectionText(c, s.Template, ts.GetData(), getSectionSeparator(ts.cfg, ts.index))
+	return getSectionDivider(ts.cfg, ts.index)
 }

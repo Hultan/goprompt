@@ -30,10 +30,7 @@ func GetPrompt() string {
 	p := getPrompt(nonEmptySections)
 	result := fmt.Sprintf("%s%s%s", cfg.Prefix, p, cfg.Suffix)
 
-	// length := goTermText.Len(result)
 	return result
-
-	// return result
 }
 
 func createSections(cfg *config.Config) []section {
@@ -58,6 +55,8 @@ func createSections(cfg *config.Config) []section {
 			s = goVersionSection{c}
 		case SectionTypeDrive:
 			s = driveSection{c}
+		case SectionTypeDivider:
+			s = dividerSection{c}
 		}
 		sections = append(sections, s)
 	}
@@ -86,9 +85,26 @@ func removeEmptySections(cfg *config.Config, data []string, sections []section) 
 func getPrompt(sections []section) string {
 	result := ""
 	for i := range sections {
+		_, isDivider := sections[i].(dividerSection)
+		if isDivider && i == len(sections)-1 {
+			continue
+		}
 		result += sections[i].GetSection()
 	}
 	return result
+}
+
+func getSectionDivider(cfg *config.Config, index int) string {
+	s := cfg.Sections[index]
+	var next string
+
+	next = cfg.Sections[index+1].BgColor
+
+	c := createColor("black", next)
+	c = addStyles(s.SeparatorStyles, c)
+	sec := c.Sprintf("%s", "\uE0B0")
+
+	return sec
 }
 
 func getSectionSeparator(cfg *config.Config, index int) string {

@@ -22,10 +22,8 @@ type ConfigSection struct {
 	FgColor          string `json:"fg-color"`
 	BgColor          string `json:"bg-color"`
 	Styles           string `json:"styles"`
-	Prefix           string `json:"prefix"`
-	Suffix           string `json:"suffix"`
+	Template         string `json:"template"`
 	Format           string `json:"format"`
-	Text             string `json:"text"`
 	Separator        string `json:"sep"`
 	RemoveIfEmpty    bool   `json:"remove-if-empty"`
 	SeparatorFgColor string `json:"sep-fg-color"`

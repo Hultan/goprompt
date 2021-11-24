@@ -31,7 +31,7 @@ type configSection struct {
 type textSection struct{ configSection }
 
 func (ts textSection) GetData() string {
-	return ts.cfg.Sections[ts.index].Text
+	return ts.cfg.Sections[ts.index].Template
 }
 
 func (ts textSection) GetSection() string {
@@ -39,7 +39,7 @@ func (ts textSection) GetSection() string {
 	c := createColor(s.FgColor, s.BgColor)
 	c = addStyles(s.Styles, c)
 
-	return c.Sprintf("%s%s%s%s", s.Prefix, ts.GetData(), s.Suffix, getSectionSeparator(ts.cfg, ts.index))
+	return GetSectionText(c, s.Template, ts.GetData(), getSectionSeparator(ts.cfg, ts.index))
 }
 
 //
@@ -71,7 +71,7 @@ func (ts pwdSection) GetSection() string {
 	c := createColor(s.FgColor, s.BgColor)
 	c = addStyles(s.Styles, c)
 
-	return c.Sprintf("%s%s%s%s", s.Prefix, ts.GetData(), s.Suffix, getSectionSeparator(ts.cfg, ts.index))
+	return GetSectionText(c, s.Template, ts.GetData(), getSectionSeparator(ts.cfg, ts.index))
 }
 
 //
@@ -93,7 +93,7 @@ func (ts userNameSection) GetSection() string {
 	c := createColor(s.FgColor, s.BgColor)
 	c = addStyles(s.Styles, c)
 
-	return c.Sprintf("%s%s%s%s", s.Prefix, ts.GetData(), s.Suffix, getSectionSeparator(ts.cfg, ts.index))
+	return GetSectionText(c, s.Template, ts.GetData(), getSectionSeparator(ts.cfg, ts.index))
 }
 
 //
@@ -114,7 +114,8 @@ func (ts computerNameSection) GetSection() string {
 	s := ts.cfg.Sections[ts.index]
 	c := createColor(s.FgColor, s.BgColor)
 	c = addStyles(s.Styles, c)
-	return c.Sprintf("%s%s%s%s", s.Prefix, ts.GetData(), s.Suffix, getSectionSeparator(ts.cfg, ts.index))
+
+	return GetSectionText(c, s.Template, ts.GetData(), getSectionSeparator(ts.cfg, ts.index))
 }
 
 //
@@ -131,7 +132,8 @@ func (ts dateTimeSection) GetSection() string {
 	s := ts.cfg.Sections[ts.index]
 	c := createColor(s.FgColor, s.BgColor)
 	c = addStyles(s.Styles, c)
-	return c.Sprintf("%s%s%s%s", s.Prefix, ts.GetData(), s.Suffix, getSectionSeparator(ts.cfg, ts.index))
+
+	return GetSectionText(c, s.Template, ts.GetData(), getSectionSeparator(ts.cfg, ts.index))
 }
 
 //
@@ -157,7 +159,8 @@ func (ts gitSection) GetSection() string {
 	s := ts.cfg.Sections[ts.index]
 	c := createColor(s.FgColor, s.BgColor)
 	c = addStyles(s.Styles, c)
-	return c.Sprintf("%s%s%s%s", s.Prefix, ts.GetData(), s.Suffix, getSectionSeparator(ts.cfg, ts.index))
+
+	return GetSectionText(c, s.Template, ts.GetData(), getSectionSeparator(ts.cfg, ts.index))
 }
 
 //
@@ -183,7 +186,8 @@ func (ts goVersionSection) GetSection() string {
 	s := ts.cfg.Sections[ts.index]
 	c := createColor(s.FgColor, s.BgColor)
 	c = addStyles(s.Styles, c)
-	return c.Sprintf("%s%s%s%s", s.Prefix, ts.GetData(), s.Suffix, getSectionSeparator(ts.cfg, ts.index))
+
+	return GetSectionText(c, s.Template, ts.GetData(), getSectionSeparator(ts.cfg, ts.index))
 }
 
 //
@@ -216,5 +220,6 @@ func (ts driveSection) GetSection() string {
 	s := ts.cfg.Sections[ts.index]
 	c := createColor(s.FgColor, s.BgColor)
 	c = addStyles(s.Styles, c)
-	return c.Sprintf("%s%s%s%s", s.Prefix, ts.GetData(), s.Suffix, getSectionSeparator(ts.cfg, ts.index))
+
+	return GetSectionText(c, s.Template, ts.GetData(), getSectionSeparator(ts.cfg, ts.index))
 }

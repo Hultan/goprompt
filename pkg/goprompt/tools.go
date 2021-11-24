@@ -2,7 +2,15 @@ package goprompt
 
 import (
 	"fmt"
+	"strings"
+
+	"github.com/fatih/color"
 )
+
+
+func GetSectionText(c *color.Color, template,data, separator string) string {
+	return c.Sprintf("%s%s", strings.Replace(template,"$data$", data, -1) , separator)
+}
 
 // From https://yourbasic.org/golang/formatting-byte-size-to-human-readable-format/
 

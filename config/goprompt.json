@@ -2,62 +2,83 @@
   "main-prefix":"",
   "sections": [
     {
+      "type": "text",
+      "fg-color": "green",
+      "bg-color": "black",
+      "styles": "",
+      "template": "",
+      "sep": "",
+      "sep-fg-color": "",
+      "sep-bg-color": ""
+    },
+    {
+      "type": "computer-name",
+      "fg-color": "hiwhite",
+      "bg-color": "green",
+      "styles": "bold",
+      "template": "🖳 $data$ ",
+      "sep": "\uE0B0",
+      "sep-fg-color": "",
+      "sep-bg-color": ""
+    },
+    {
       "type": "user-name",
       "fg-color": "hiwhite",
       "bg-color": "blue",
-      "styles": "bold",
-      "prefix": " ",
-      "suffix": " ",
+      "styles": "",
+      "template": "  $data$",
       "sep": "\uE0B0",
-      "sep-fg-color": "blue",
-      "sep-bg-color": "hiblue"
+      "sep-fg-color": "",
+      "sep-bg-color": ""
+    },
+    {
+      "type": "divider"
     },
     {
       "type": "datetime",
       "fg-color": "hiwhite",
       "bg-color": "hiblue",
       "styles": "bold",
-      "prefix": " ",
-      "suffix": " ",
-      "format": "2006-01-02 15:04",
+      "template": "  $data$ ",
+      "format": "15:04",
       "sep": "\uE0B0",
-      "sep-fg-color": "hiblue",
-      "sep-bg-color": "hiwhite"
+      "sep-fg-color": "",
+      "sep-bg-color": ""
     },
     {
       "type": "pwd",
       "fg-color": "hiblue",
       "bg-color": "hiwhite",
       "styles": "bold",
-      "prefix": " ",
-      "suffix": " ",
+      "template": "   $data$",
       "sep": "\uE0B0",
-      "sep-fg-color": "hiwhite",
-      "sep-bg-color": "hiblue"
+      "sep-fg-color": "",
+      "sep-bg-color": ""
+    },
+    {
+      "type": "divider"
     },
     {
       "type": "go",
       "fg-color": "hiwhite",
       "bg-color": "hiblue",
       "styles": "bold",
-      "prefix": " go ",
-      "suffix": " ",
+      "template": " ﳑ go $data$ ",
       "remove-if-empty": true,
       "sep": "\uE0B0",
-      "sep-fg-color": "hiblue",
-      "sep-bg-color": "blue"
+      "sep-fg-color": "",
+      "sep-bg-color": ""
     },
     {
       "type": "git",
       "fg-color": "hiwhite",
       "bg-color": "blue",
       "styles": "bold",
-      "prefix": " ",
-      "suffix": " ",
+      "template": " שׂ go $data$ ",
       "remove-if-empty": true,
       "format": "",
       "sep": "\uE0B0",
-      "sep-fg-color": "blue",
+      "sep-fg-color": "",
       "sep-bg-color": ""
     }
   ],
